@@ -1,0 +1,53 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/ats-frontend/dist
+/ats-frontend/tmp
+/ats-frontend/out-tsc
+# Only exists if Bazel was run
+/ats-frontend/bazel-out
+
+# dependencies
+/ats-frontend/node_modules
+
+# profiling files
+ats-frontend/chrome-profiler-events*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/ats-frontend/.sass-cache
+/ats-frontend/connect.lock
+/ats-frontend/coverage
+/ats-frontend/libpeerconnection.log
+/ats-frontend/npm-debug.log
+/ats-frontend/yarn-error.log
+/ats-frontend/testem.log
+/ats-frontend/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+ats-frontend/.DS_Store
+ats-frontend/Thumbs.db
+ats-backend/.DS_Store
+ats-backend/Thumbs.db
+ats-postman/.DS_Store
+ats-postman/Thumbs.db
+ats-database/.DS_Store
+ats-database/Thumbs.db
