@@ -1,0 +1,819 @@
+{
+	"info": {
+		"_postman_id": "92155993-7533-4f38-9963-fb1f61f75dfa",
+		"name": "Desafio-ATS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Candidate",
+			"item": [
+				{
+					"name": "Insert new candidate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check the active environment\", () => {\r",
+									"  pm.expect(pm.environment.name).to.eql(\"TOTVS-ATS\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});  \r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches FirstName\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CPF\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cpf\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches PhoneNumber\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CreatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"createdDate\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches UpdatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"updatedDate\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Valéria\",\r\n  \"lastName\": \"Santos de Silveira\",\r\n  \"email\": \"valeria.silveira@testes.com.br\",\r\n  \"createdDate\": \"2021-10-31T12:02:00.000Z\",\r\n  \"cpf\": \"00265897801\",\r\n  \"phoneNumber\": \"+5548999887777\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Candidate",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Candidate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all candidates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check the active environment\", () => {\r",
+									"  pm.expect(pm.environment.name).to.eql(\"TOTVS-ATS\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches FirstName\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CPF\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cpf\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches PhoneNumber\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CreatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"createdDate\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches UpdatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"updatedDate\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Candidate",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Candidate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get canditate by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check the active environment\", () => {\r",
+									"  pm.expect(pm.environment.name).to.eql(\"TOTVS-ATS\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches FirstName\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Email\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CPF\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"cpf\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches PhoneNumber\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CreatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"createdDate\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches UpdatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"updatedDate\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Candidate/1",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Candidate",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update candidate by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"No Content\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is null\", function () {\r",
+									"    pm.response.to.not.have.jsonBody;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Maicon\",\r\n    \"lastName\": \"da Silva Borges\",\r\n    \"email\": \"ms.borges@outlook.com\",\r\n    \"cpf\": \"06687446932\",\r\n    \"phoneNumber\": \"+5547996812952\",\r\n    \"createdDate\": \"2021-10-31T12:02:00\",\r\n    \"updatedDate\": \"2021-10-31T17:30:22\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Candidate/1",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Candidate",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete candidate by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"No Content\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is null\", function () {\r",
+									"    pm.response.to.not.have.jsonBody;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Candidate/4",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Candidate",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Job",
+			"item": [
+				{
+					"name": "Insert new job",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check the active environment\", () => {\r",
+									"  pm.expect(pm.environment.name).to.eql(\"TOTVS-ATS\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});  \r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Title\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Description\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Responsibilities\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"responsibilities\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches AdditionalInformations\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"additionalInformations\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CreatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"createdDate\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches UpdatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"updatedDate\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Coordenador (a) de Cloud\",\r\n  \"description\": \"Nossa tecnologia dita o ritmo do mercado. Afinal, 25% do PIB brasileiro passa pelos softwares presentes em mais de 40 mil empresas clientes da TOTVS. Para que isso aconteça precisamos ser ágeis, pois as coisas aqui acontecem em uma velocidade acima da média. Topa esse desafio? #ouseetransforme #sejaumTOTVER\",\r\n  \"responsibilities\": \"Realizar gestão de pessoas através da motivação e mentoria, desenvolvendo e acompanhando a equipe, resolvendo conflitos e sendo uma referência técnica e pessoal. Garantir o repasse e desdobramento dos direcionamentos/metas da empresa e da área, realizando reuniões de resultados com a equipe. Manter alinhamento constante com o time, através de desdobramentos realizados com o gestor e reuniões periódicas com o time.\",\r\n  \"additionalInformations\": \"Antes de mostrar nossos benefícios, deixa eu já te contar uma coisa: aqui as coisas acontecem em um ritmo acima da média. A rotina em uma empresa de tecnologia é alucinante e o aprendizado é contínuo e diário. O melhor disso é que temos autonomia para colocar esse aprendizado em prática e buscar resultados. E se errarmos? Voltamos e consertamos rápido, até criarmos aquilo que acreditamos ser parte da transformação de nossos cliente.\",\r\n  \"createdDate\": \"2021-10-31T16:33:56.771Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Job",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all jobs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check the active environment\", () => {\r",
+									"  pm.expect(pm.environment.name).to.eql(\"TOTVS-ATS\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Title\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Description\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Responsibilities\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"responsibilities\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches AdditionalInformations\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"additionalInformations\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CreatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"createdDate\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches UpdatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"updatedDate\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Job",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get job by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check the active environment\", () => {\r",
+									"  pm.expect(pm.environment.name).to.eql(\"TOTVS-ATS\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Id\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Title\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Description\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"description\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches Responsibilities\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"responsibilities\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches AdditionalInformations\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"additionalInformations\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches CreatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"createdDate\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches UpdatedDate\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"updatedDate\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Job/1",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Job",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update job by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"No Content\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is null\", function () {\r",
+									"    pm.response.to.not.have.jsonBody;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Coordenador (a) de Cloud\",\r\n  \"description\": \"Nossa tecnologia dita o ritmo do mercado. Afinal, 25% do PIB brasileiro passa pelos softwares presentes em mais de 40 mil empresas clientes da TOTVS. Para que isso aconteça precisamos ser ágeis, pois as coisas aqui acontecem em uma velocidade acima da média. Topa esse desafio? #ouseetransforme #sejaumTOTVER\",\r\n  \"responsibilities\": \"Realizar gestão de pessoas através da motivação e mentoria, desenvolvendo e acompanhando a equipe, resolvendo conflitos e sendo uma referência técnica e pessoal. Garantir o repasse e desdobramento dos direcionamentos/metas da empresa e da área, realizando reuniões de resultados com a equipe. Manter alinhamento constante com o time, através de desdobramentos realizados com o gestor e reuniões periódicas com o time.\",\r\n  \"additionalInformations\": \"Antes de mostrar nossos benefícios, deixa eu já te contar uma coisa: aqui as coisas acontecem em um ritmo acima da média. A rotina em uma empresa de tecnologia é alucinante e o aprendizado é contínuo e diário. O melhor disso é que temos autonomia para colocar esse aprendizado em prática e buscar resultados. E se errarmos? Voltamos e consertamos rápido, até criarmos aquilo que acreditamos ser parte da transformação de nossos cliente.\",\r\n  \"createdDate\": \"2021-10-31T17:33:56.771Z\",\r\n  \"updatedDate\": \"2021-10-31T18:33:56.771Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Job/2",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Job",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete job by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code name has string\", () => {\r",
+									"  pm.response.to.have.status(\"No Content\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should be okay to process\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is null\", function () {\r",
+									"    pm.response.to.not.have.jsonBody;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{server}}:{{port}}/Job/2",
+							"protocol": "https",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"Job",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "localhost"
+		},
+		{
+			"key": "port",
+			"value": "44308"
+		}
+	]
+}
