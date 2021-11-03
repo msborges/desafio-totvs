@@ -1,0 +1,57 @@
+<po-page-edit
+  [p-disable-submit]="isInvalid()"
+  (p-cancel)="cancel()"
+  (p-save)="save()"
+>
+  <form #formEditJob="ngForm">
+    <div class="po-row">
+      <po-input
+        class="po-md-12"
+        name="title"
+        [(ngModel)]="title"
+        p-clean
+        p-label="Título"
+        [p-maxlength]="100"
+        [p-minlength]="3"
+        p-required
+      >
+      </po-input>
+    </div>
+
+    <div class="po-row">
+      <po-rich-text
+        class="po-md-12"
+        [(ngModel)]="description"
+        [p-height]="60"
+        name="description"
+        p-label="Descrição da vaga"
+        [p-required]="true"
+      >
+      </po-rich-text>
+    </div>
+
+    <div class="po-row">
+      <po-rich-text
+        class="po-md-12"
+        [(ngModel)]="responsibilities"
+        [p-height]="50"
+        name="responsibilities"
+        p-label="Responsabilidades requeridas"
+        [p-required]="true"
+      >
+      </po-rich-text>
+    </div>
+
+    <div class="po-row">
+      <po-rich-text
+        class="po-md-12"
+        [(ngModel)]="additionalInformations"
+        [p-height]="40"
+        name="additionalInformations"
+        p-label="Informações adicionais"
+        [p-required]="true"
+      >
+      </po-rich-text>
+    </div>
+  </form>
+</po-page-edit>
