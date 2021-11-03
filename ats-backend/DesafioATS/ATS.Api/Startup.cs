@@ -21,6 +21,13 @@ namespace ATS.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => {
+                    builder.WithOrigins("*")
+                           .WithMethods("POST", "PUT", "DELETE", "GET")
+                           .AllowAnyHeader();
+                });
+            });
             services.AddDbContext<ATSContext>(opts => opts.UseMySQL(Configuration.GetConnectionString("AtsConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,6 +50,8 @@ namespace ATS.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

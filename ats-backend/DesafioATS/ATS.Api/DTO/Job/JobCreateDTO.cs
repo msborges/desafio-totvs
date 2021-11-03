@@ -24,5 +24,7 @@ namespace ATS.Api.DTO
         public string AdditionalInformations { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
     }
 }
