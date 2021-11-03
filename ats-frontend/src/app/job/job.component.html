@@ -1,0 +1,40 @@
+<div class="po-row">
+  <po-button
+    class="
+      po-offset-md-6
+      po-offset-lg-10
+      po-offset-xl-10
+      po-sm-12
+      po-md-6
+      po-lg-2
+      po-xl-2
+      po-mb-3
+    "
+    p-icon="po-icon-news"
+    p-label="Nova Vaga"
+    [p-loading]="loading"
+    p-type="primary"
+    (p-click)="newJob()"
+  >
+  </po-button>
+</div>
+<po-table
+  [p-actions]="actions"
+  [p-auto-collapse]="true"
+  [p-columns]="colums"
+  p-container="shadow"
+  [p-hide-columns-manager]="false"
+  [p-hide-select-all]="true"
+  [p-hide-text-overflow]="true"
+  [p-items]="items"
+  [p-loading]="loading"
+  [p-sort]="true"
+  [p-striped]="true"
+>
+</po-table>
+<po-modal
+    [p-click-out]="true"
+    p-size="xl"
+    p-title="Candidatos para a vaga" >
+    <app-job-visualize-candidates></app-job-visualize-candidates>
+</po-modal>

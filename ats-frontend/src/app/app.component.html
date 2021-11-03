@@ -1,9 +1,7 @@
 <div class="po-wrapper">
-  <po-toolbar p-title="AppName"></po-toolbar>
-
-  <po-menu [p-menus]="menus"></po-menu>
-
-  <po-page-default p-title="AppName">
-    <p> AppName page </p>
+  <po-toolbar p-title="Desafio ATS"></po-toolbar>
+  <app-menu></app-menu>
+  <po-page-default [p-title]="titlePage">
+    <router-outlet></router-outlet>
   </po-page-default>
 </div>
