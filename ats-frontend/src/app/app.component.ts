@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TitleService } from './title/title.service';
 
@@ -7,11 +7,13 @@ import { TitleService } from './title/title.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   public titlePage: string = 'Home';
   private titleSubscription: Subscription = new Subscription();
 
-  constructor(public titleService: TitleService) {
+  constructor(public titleService: TitleService) {}
+
+  ngOnInit(): void {
     this.titleSubscription = this.titleService.emitTitleObservable.subscribe(
       (title) => (this.titlePage = title)
     );

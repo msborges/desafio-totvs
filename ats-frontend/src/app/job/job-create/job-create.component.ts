@@ -3,9 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  PoBreadcrumb,
-  PoBreadcrumbItem,
-  PoNotificationService,
+  PoNotificationService
 } from '@po-ui/ng-components';
 import { Subscription } from 'rxjs';
 import { Job } from 'src/app/api/job';
@@ -24,14 +22,6 @@ export class JobCreateComponent implements OnInit {
   public description: string;
   public responsibilities: string;
   public additionalInformations: string;
-
-  public readonly breadcrumb: PoBreadcrumb = {
-    items: [
-      { label: 'Home', action: this.beforeRedirect.bind(this) },
-      { label: 'Vagas', action: this.beforeRedirect.bind(this) },
-      { label: 'Nova Vaga' },
-    ],
-  };
 
   private id: number;
 
@@ -94,13 +84,4 @@ export class JobCreateComponent implements OnInit {
       this.formEditJob?.invalid != null ? this.formEditJob.invalid : true;
     return isValid;
   }
-
-  private beforeRedirect(breadcrumb: PoBreadcrumbItem) {
-    if (breadcrumb.label === 'Home') {
-      this.router.navigate(['/']);
-    } else {
-      this.router.navigate(['/jobs']);
-    }
-  }
-
 }
