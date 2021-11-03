@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, Route, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   PoBreadcrumb,
   PoBreadcrumbItem,
@@ -25,19 +25,10 @@ export class JobEditComponent implements OnInit {
   public responsibilities: string;
   public additionalInformations: string;
 
-  public readonly breadcrumb: PoBreadcrumb = {
-    items: [
-      { label: 'Home', action: this.beforeRedirect.bind(this) },
-      { label: 'Vagas', action: this.beforeRedirect.bind(this) },
-      { label: 'Editar Vaga' },
-    ],
-  };
-
   private id: number;
   private createdDate: Date;
 
   private jobSubscriptions: Subscription[] = [];
-
 
   constructor(
     private service: JobService,
@@ -60,7 +51,7 @@ export class JobEditComponent implements OnInit {
   }
 
   public initialize() {
-    const idUrl = this.activeRoute.snapshot.paramMap.get('id');
+    const idUrl = this.activeRoute?.snapshot?.paramMap.get('id');
     this.loadJobById(Number(idUrl));
   }
 
@@ -72,7 +63,7 @@ export class JobEditComponent implements OnInit {
       responsibilities: this.responsibilities,
       additionalInformations: this.additionalInformations,
       createdDate: this.createdDate,
-      updatedDate: new Date()
+      updatedDate: new Date(),
     };
 
     try {
@@ -112,9 +103,16 @@ export class JobEditComponent implements OnInit {
           (response: Job) => {
             this.id = response.id;
             this.title = response.title;
-            this.description = response.description != null ? response.description: '';
-            this.responsibilities = response.responsibilities != null ? response.responsibilities : '';
-            this.additionalInformations = response.additionalInformations != null ? response.additionalInformations : '';
+            this.description =
+              response.description != null ? response.description : '';
+            this.responsibilities =
+              response.responsibilities != null
+                ? response.responsibilities
+                : '';
+            this.additionalInformations =
+              response.additionalInformations != null
+                ? response.additionalInformations
+                : '';
             this.createdDate = response.createdDate;
           },
           (error: HttpErrorResponse) => {
@@ -126,14 +124,6 @@ export class JobEditComponent implements OnInit {
     } catch (error) {
       console.error(error);
       this.notification.error('Erro ao carregar o registro em tela!');
-    }
-  }
-
-  private beforeRedirect(breadcrumb: PoBreadcrumbItem) {
-    if (breadcrumb.label === 'Home') {
-      this.router.navigate(['/']);
-    } else {
-      this.router.navigate(['/jobs']);
     }
   }
 }
